@@ -27,8 +27,8 @@
 #	simulator
 
 ifeq ($(ARCH),)
-#ARCH = stm32l
-ARCH = mbed_lpc17
+ARCH = stm32l
+#ARCH = mbed_lpc17
 #ARCH = avr
 #ARCH = simulator
 endif
@@ -118,9 +118,9 @@ test:
 	@make clean	
 	@make ARCH=stm32l
 	
-	@echo "Compiling freertos_lpc17"
+	@echo "Compiling mbed_lpc17"
 	@make clean	
-	@make ARCH=freertos_lpc17
+	@make ARCH=mbed_lpc17
 	
 	@echo "Compiling avr:"
 	@make clean	
