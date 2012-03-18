@@ -44,7 +44,7 @@ static uint8_t rx_buffer_tail = 0;
 
 void dev_print_flash(const char *s) 
 {
-	printString(s);
+	//printString(s);
 }
 
 void serial_init(long baud)
@@ -60,7 +60,7 @@ void serial_init(long baud)
 	USART_Init(USART1, &usart_init);
 
 	/* Enable the USART */
-	USART_Cmd(USART1, ENABLE);
+//	USART_Cmd(USART1, ENABLE);
 }
 
 void serial_write(uint8_t data)

@@ -34,20 +34,19 @@ void main(void);
 void reset_handler(void);
 void blocking_handler(void);
 void null_handler(void);
+
 void WEAK nmi_handler(void);
 void WEAK hard_fault_handler(void);
 void WEAK mem_manage_handler(void);
 void WEAK bus_fault_handler(void);
 void WEAK usage_fault_handler(void);
-extern void sv_call_handler();
-#define sv_call_handler sv_call_handler
+extern void vPortSVCHandler(void);
+#define sv_call_handler vPortSVCHandler
 void WEAK debug_monitor_handler(void);
 extern void xPortPendSVHandler(void);
 extern void xPortSysTickHandler(void);
-extern void pend_sv_handler();
-#define pend_sv_handler pend_sv_handler
-extern void systick_handler();
-#define sys_tick_handler systick_handler
+#define pend_sv_handler xPortPendSVHandler
+#define sys_tick_handler xPortSysTickHandler
 void WEAK wwdg_isr(void);
 void WEAK pvd_isr(void);
 void WEAK tamper_isr(void);
@@ -76,7 +75,9 @@ void WEAK tim1_brk_isr(void);
 void WEAK tim1_up_isr(void);
 void WEAK tim1_trg_com_isr(void);
 void WEAK tim1_cc_isr(void);
-extern void tim2_isr();
+
+extern void tim2_isr(void);
+
 void WEAK tim3_isr(void);
 void WEAK tim4_isr(void);
 void WEAK i2c1_ev_isr(void);
@@ -114,7 +115,7 @@ void (*const vector_table[]) (void) =
 {
 	(void *)((unsigned long)stack + sizeof(stack)), reset_handler, nmi_handler, hard_fault_handler, mem_manage_handler, bus_fault_handler, usage_fault_handler, 0, 0, 0, 0,	/* Reserved */
 	    sv_call_handler, debug_monitor_handler, 0,	/* Reserved */
-	    pend_sv_handler,
+pend_sv_handler,
 	    sys_tick_handler,
 	    wwdg_isr,
 	    pvd_isr,
@@ -243,7 +244,7 @@ void null_handler(void)
 #pragma weak tim1_up_isr = null_handler
 #pragma weak tim1_trg_com_isr = null_handler
 #pragma weak tim1_cc_isr = null_handler
-#pragma weak tim2_isr = null_handler
+//#pragma weak tim2_isr = null_handler
 #pragma weak tim3_isr = null_handler
 #pragma weak tim4_isr = null_handler
 #pragma weak i2c1_ev_isr = null_handler

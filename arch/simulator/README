@@ -1,0 +1,3 @@
+try socat:
+"You can debug the serial code wihtout an actual firmware by using socat:
+* sudo socat -d -d pty,link=/dev/libreprap,raw,echo=0 readline,raw,echo=0"
